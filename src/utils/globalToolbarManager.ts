@@ -1,6 +1,6 @@
-import type { FormatterFunction, TextInputElement, ToolbarPosition, ToolbarState } from './types';
+import type { FormatterFunction, TextInputElement, ToolbarPosition, ToolbarState } from '@/types';
 
-import { applyFormattingOnSelection, updateElementValue } from './utils/domUtils';
+import { applyFormattingOnSelection, updateElementValue } from './domUtils';
 
 /**
  * Default positioning function that places the toolbar below the focused element.
