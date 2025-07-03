@@ -2,7 +2,8 @@
 
 A lightweight TypeScript React hook library for adding formatting toolbars to text inputs and textareas. Show contextual formatting options when users focus on input fields.
 
-[![wakatime](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/897368ef-62b9-48be-bba9-7c530f10e3da.svg)](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/897368ef-62b9-48be-bba9-7c530f10e3da)
+[![wakatime](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/f3f86e51-f640-45b9-b5c1-8612a6c8b84c.svg)](https://wakatime.com/badge/user/a0b906ce-b8e7-4463-8bce-383238df6d4b/project/f3f86e51-f640-45b9-b5c1-8612a6c8b84c)
+[![codecov](https://codecov.io/gh/ragaeeb/blumbaben/graph/badge.svg?token=Y0VF63CGJM)](https://codecov.io/gh/ragaeeb/blumbaben)
 ![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white)
 [![Node.js CI](https://github.com/ragaeeb/blumbaben/actions/workflows/build.yml/badge.svg)](https://github.com/ragaeeb/blumbaben/actions/workflows/build.yml)
 ![GitHub License](https://img.shields.io/github/license/ragaeeb/blumbaben)
