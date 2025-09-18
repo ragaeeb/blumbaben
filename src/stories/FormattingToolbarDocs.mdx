@@ -1,0 +1,67 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as ToolbarStories from './FormattingToolbar.stories';
+
+<Meta title="Formatting toolbar/Overview" of={ToolbarStories} />
+
+# Blumbaben formatting toolbar
+
+`blumbaben` provides a global formatting toolbar that floats near focused inputs and textareas. This Storybook hosts interactive examples showing how the hook, component, and higher-order helper work together.
+
+## Try it out
+
+<Canvas of={ToolbarStories.FocusTriggeredToolbar} />
+
+## Quick start
+
+<Source
+    language="tsx"
+    code={`import { FormattingToolbar, useFormattingToolbar } from 'blumbaben';
+import { useState } from 'react';
+
+export function CommentComposer() {
+    const [value, setValue] = useState('');
+    const { getInputProps } = useFormattingToolbar();
+
+    return (
+        <div>
+            <textarea
+                {...getInputProps()}
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                placeholder="Focus the field to reveal the toolbar"
+            />
+
+            <FormattingToolbar>
+                {(applyFormat) => (
+                    <>
+                        <button type="button" onClick={() => applyFormat((text) => text.toUpperCase())}>
+                            Uppercase
+                        </button>
+                        <button type="button" onClick={() => applyFormat((text) => \`**\${text}**\`)}>
+                            Bold
+                        </button>
+                    </>
+                )}
+            </FormattingToolbar>
+        </div>
+    );
+}`}
+/>
+
+## Compose your own surfaces
+
+Use `useFormattingToolbar` when you need total control over the positioning or behaviour of the toolbar.
+
+<Canvas of={ToolbarStories.CustomPlacement} />
+
+## Upgrade existing inputs
+
+`withFormattingToolbar` enhances an existing input component without changing its internals.
+
+<Canvas of={ToolbarStories.HigherOrderComponent} />
+
+## Key ideas
+
+- **Single global toolbar** – whichever input is focused owns the toolbar until focus changes.
+- **Formatter functions** – `applyFormat` receives a function that transforms the active selection or the entire field when nothing is selected.
+- **Bring your own UI** – the library only manages state and positioning, letting you render any UI you prefer.
