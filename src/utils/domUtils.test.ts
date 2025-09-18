@@ -1,11 +1,16 @@
 import { describe, expect, it, jest, spyOn } from 'bun:test';
 
+import type { TextInputElement } from '../types';
+
 import { applyFormattingOnSelection, updateElementValue } from './domUtils';
 
 describe('domUtils', () => {
     describe('updateElementValue', () => {
         it('should update element value without onChange callback', () => {
-            const element = { dispatchEvent: jest.fn(), value: '' } as any;
+            const element = {
+                dispatchEvent: jest.fn(),
+                value: '',
+            } as unknown as TextInputElement;
 
             updateElementValue(element, 'new value');
 
@@ -13,7 +18,10 @@ describe('domUtils', () => {
         });
 
         it('should update element value and call onChange for input element', () => {
-            const element = { dispatchEvent: jest.fn(), value: '' } as any;
+            const element = {
+                dispatchEvent: jest.fn(),
+                value: '',
+            } as unknown as TextInputElement;
             const onChange = spyOn({}, 'onChange' as never).mockImplementation((() => {}) as never);
 
             updateElementValue(element, 'new value', onChange as never);
@@ -26,7 +34,10 @@ describe('domUtils', () => {
         });
 
         it('should update element value and call onChange for textarea element', () => {
-            const element = { dispatchEvent: jest.fn(), value: '' } as any;
+            const element = {
+                dispatchEvent: jest.fn(),
+                value: '',
+            } as unknown as TextInputElement;
             const onChange = spyOn({}, 'onChange' as never).mockImplementation((() => {}) as never);
 
             updateElementValue(element, 'textarea content', onChange as never);
@@ -45,7 +56,7 @@ describe('domUtils', () => {
                 selectionEnd: 10,
                 selectionStart: 5,
                 value: 'Hello world test',
-            } as any;
+            } as unknown as HTMLTextAreaElement;
 
             const formatter = (text: string) => text.toUpperCase();
 
@@ -59,7 +70,7 @@ describe('domUtils', () => {
                 selectionEnd: 5,
                 selectionStart: 5,
                 value: 'hello world',
-            } as any;
+            } as unknown as HTMLTextAreaElement;
 
             const formatter = (text: string) => text.toUpperCase();
 
@@ -73,7 +84,7 @@ describe('domUtils', () => {
                 selectionEnd: 0,
                 selectionStart: 0,
                 value: 'test content',
-            } as any;
+            } as unknown as HTMLTextAreaElement;
 
             const formatter = (text: string) => `[${text}]`;
 
@@ -87,7 +98,7 @@ describe('domUtils', () => {
                 selectionEnd: undefined,
                 selectionStart: null,
                 value: 'test',
-            } as any;
+            } as unknown as HTMLTextAreaElement;
 
             const formatter = (text: string) => text.toUpperCase();
 
@@ -101,7 +112,7 @@ describe('domUtils', () => {
                 selectionEnd: 0,
                 selectionStart: 0,
                 value: null,
-            } as any;
+            } as unknown as HTMLTextAreaElement;
 
             const formatter = (text: string) => text.toUpperCase();
 
@@ -115,7 +126,7 @@ describe('domUtils', () => {
                 selectionEnd: 5,
                 selectionStart: 0,
                 value: 'hello world',
-            } as any;
+            } as unknown as HTMLTextAreaElement;
 
             const formatter = (text: string) => `**${text}**`;
 

@@ -21,3 +21,5 @@ coverage
 .flaskenv*
 !.env.project
 !.env.vault
+*storybook.log
+storybook-static

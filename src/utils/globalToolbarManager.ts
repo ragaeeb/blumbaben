@@ -1,3 +1,5 @@
+import type React from 'react';
+
 import type { FormatterFunction, TextInputElement, ToolbarPosition, ToolbarState } from '@/types';
 
 import { applyFormattingOnSelection, updateElementValue } from './domUtils';
@@ -30,7 +32,10 @@ type ToolbarStateManager = {
      * @param {FormatterFunction} formatter - Function to transform the text
      * @param {(e: React.ChangeEvent<TextInputElement>) => void} [onChange] - Optional change handler
      */
-    applyFormat(formatter: FormatterFunction, onChange?: (e: React.ChangeEvent<TextInputElement>) => void): void;
+    applyFormat(
+        formatter: FormatterFunction,
+        onChange?: (e: React.ChangeEvent<TextInputElement>) => void,
+    ): void;
 
     /** Cancel any scheduled toolbar hide operation */
     cancelScheduledHide(): void;
@@ -54,7 +59,10 @@ type ToolbarStateManager = {
      * @param {TextInputElement} element - The element to show the toolbar for
      * @param {(element: TextInputElement) => ToolbarPosition} getPosition - Function to determine toolbar position
      */
-    showToolbar(element: TextInputElement, getPosition: (element: TextInputElement) => ToolbarPosition): void;
+    showToolbar(
+        element: TextInputElement,
+        getPosition: (element: TextInputElement) => ToolbarPosition,
+    ): void;
 
     /**
      * Subscribe to toolbar state changes.
@@ -84,7 +92,10 @@ class GlobalToolbarManager implements ToolbarStateManager {
     };
     private subscribers: Set<(state: ToolbarState) => void> = new Set();
 
-    applyFormat(formatter: FormatterFunction, onChange?: (e: React.ChangeEvent<TextInputElement>) => void): void {
+    applyFormat(
+        formatter: FormatterFunction,
+        onChange?: (e: React.ChangeEvent<TextInputElement>) => void,
+    ): void {
         const { activeElement } = this.state;
 
         if (!activeElement) {
@@ -132,8 +143,12 @@ class GlobalToolbarManager implements ToolbarStateManager {
         this.clearHideTimeout();
 
         // Store the onChange handler from the element for later use
-        const props = (element as any).props || {};
-        this.activeElementOnChange = props.onChange;
+        const elementWithProps = element as TextInputElement & {
+            props?: {
+                onChange?: (e: React.ChangeEvent<TextInputElement>) => void;
+            };
+        };
+        this.activeElementOnChange = elementWithProps.props?.onChange;
 
         this.setState({
             activeElement: element,
@@ -158,7 +173,9 @@ class GlobalToolbarManager implements ToolbarStateManager {
 
     private setState(newState: Partial<ToolbarState>): void {
         this.state = { ...this.state, ...newState };
-        this.subscribers.forEach((callback) => callback(this.getState()));
+        this.subscribers.forEach((callback) => {
+            callback(this.getState());
+        });
     }
 }
 

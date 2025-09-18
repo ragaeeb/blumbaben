@@ -35,7 +35,12 @@ import { useFormattingToolbar } from './hooks/useFormattingToolbar';
  * />
  * ```
  */
-export const withFormattingToolbar = <P extends Record<string, any>>(
+type FocusHandlers = {
+    onBlur?: (event: React.FocusEvent<TextInputElement>) => void;
+    onFocus?: (event: React.FocusEvent<TextInputElement>) => void;
+};
+
+export const withFormattingToolbar = <P extends Record<string, unknown> & FocusHandlers>(
     Component: React.ComponentType<P>,
     config: ToolbarConfig = {},
 ) => {
@@ -46,14 +51,14 @@ export const withFormattingToolbar = <P extends Record<string, any>>(
 
         const handleFocusEvent = (e: React.FocusEvent<TextInputElement>) => {
             toolbarProps.onFocus(e);
-            if (props.onFocus && typeof props.onFocus === 'function') {
+            if (typeof props.onFocus === 'function') {
                 props.onFocus(e);
             }
         };
 
         const handleBlurEvent = (e: React.FocusEvent<TextInputElement>) => {
             toolbarProps.onBlur(e);
-            if (props.onBlur && typeof props.onBlur === 'function') {
+            if (typeof props.onBlur === 'function') {
                 props.onBlur(e);
             }
         };
@@ -63,9 +68,9 @@ export const withFormattingToolbar = <P extends Record<string, any>>(
             onBlur: handleBlurEvent,
             onFocus: handleFocusEvent,
             ref,
-        } as P & { ref: React.ForwardedRef<TextInputElement> };
+        };
 
-        return React.createElement(Component, enhancedProps);
+        return React.createElement(Component, enhancedProps as unknown as P);
     });
 
     WrappedComponent.displayName = `withFormattingToolbar(${Component.displayName || Component.name})`;
