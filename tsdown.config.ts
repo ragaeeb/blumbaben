@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsdown';
+import { defineConfig } from './tools/tsdown/src/index';
 
 export default defineConfig({
     clean: true,

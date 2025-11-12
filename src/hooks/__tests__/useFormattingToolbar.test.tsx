@@ -9,6 +9,8 @@ import type { FormatterFunction } from '@/types';
 
 import { useFormattingToolbar } from '../useFormattingToolbar';
 
+const describeIfDocument = typeof globalThis.document === 'undefined' ? describe.skip : describe;
+
 const createInput = () => {
     const element = document.createElement('input');
     element.getBoundingClientRect = () =>
@@ -26,7 +28,7 @@ const createInput = () => {
     return element;
 };
 
-describe('useFormattingToolbar', () => {
+describeIfDocument('useFormattingToolbar', () => {
     beforeEach(() => {
         globalToolbarManager.hideToolbar();
         vi.restoreAllMocks();

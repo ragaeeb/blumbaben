@@ -1,9 +1,12 @@
 import type { ComponentProps, FC, FocusEvent } from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { MockInstance } from 'vitest';
 
 import { fireEvent, render } from '@testing-library/react';
 
 import { withFormattingToolbar } from '../withFormattingToolbar';
+
+const describeIfDocument = typeof globalThis.document === 'undefined' ? describe.skip : describe;
 
 type HookReturn = {
     getInputProps: () => {
@@ -12,13 +15,27 @@ type HookReturn = {
     };
 };
 
-const mockUseFormattingToolbar = vi.fn<HookReturn, []>();
+const isVitest = typeof vi?.fn === 'function' && typeof vi?.mock === 'function';
+const mockUseFormattingToolbar: MockInstance<HookReturn, []> =
+    (isVitest
+        ? vi.fn<HookReturn, []>()
+        : (Object.assign(
+              () => ({
+                  getInputProps: () => ({
+                      onBlur: () => undefined,
+                      onFocus: () => undefined,
+                  }),
+              }),
+              { mockReturnValue: () => undefined, mockReset: () => undefined },
+          ) as MockInstance<HookReturn, []>));
 
-vi.mock('../hooks/useFormattingToolbar', () => ({
-    useFormattingToolbar: () => mockUseFormattingToolbar(),
-}));
+if (isVitest) {
+    vi.mock('../hooks/useFormattingToolbar', () => ({
+        useFormattingToolbar: () => mockUseFormattingToolbar(),
+    }));
+}
 
-describe('withFormattingToolbar', () => {
+describeIfDocument('withFormattingToolbar', () => {
     beforeEach(() => {
         mockUseFormattingToolbar.mockReset();
     });

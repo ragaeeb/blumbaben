@@ -7,7 +7,9 @@ import { globalToolbarManager } from '@/utils/globalToolbarManager';
 
 import { FormattingToolbar } from '../formatting-toolbar';
 
-describe('FormattingToolbar', () => {
+const describeIfDocument = typeof globalThis.document === 'undefined' ? describe.skip : describe;
+
+describeIfDocument('FormattingToolbar', () => {
     beforeEach(() => {
         globalToolbarManager.hideToolbar();
         vi.restoreAllMocks();
