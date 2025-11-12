@@ -1,0 +1,9 @@
+{
+    "name": "tsdown",
+    "version": "0.1.0",
+    "type": "module",
+    "main": "./src/index.ts",
+    "bin": {
+        "tsdown": "./bin/tsdown.ts"
+    }
+}

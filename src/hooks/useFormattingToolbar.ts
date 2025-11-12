@@ -102,7 +102,11 @@ type UseFormattingToolbarResult = {
  * ```
  */
 export const useFormattingToolbar = (config: ToolbarConfig = {}): UseFormattingToolbarResult => {
-    const { getPosition = defaultGetPosition, hideDelay = 500, preventCloseOnClick = true } = config;
+    const {
+        getPosition = defaultGetPosition,
+        hideDelay = 500,
+        preventCloseOnClick = true,
+    } = config;
 
     // Subscribe to global toolbar state
     const [toolbarState, setToolbarState] = useState<ToolbarState>(globalToolbarManager.getState());

@@ -9,8 +9,30 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
+    resolve: {
+        alias: {
+            '@': path.join(dirname, 'src'),
+            '@testing-library/react': path.join(dirname, 'tools/testing-library-react/index.tsx'),
+        },
+    },
     test: {
+        coverage: {
+            provider: 'v8',
+            reporter: ['text', 'lcov'],
+        },
+        environment: 'jsdom',
+        globals: true,
+        include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
+        mockReset: true,
+        restoreMocks: true,
+        setupFiles: ['vitest.setup.ts'],
         projects: [
+            {
+                extends: true,
+                test: {
+                    name: 'unit',
+                },
+            },
             {
                 extends: true,
                 plugins: [

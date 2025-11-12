@@ -147,7 +147,10 @@ const formatActions: FormatAction[] = [
         label: 'Title case',
         tooltip: 'Capitalize every word in the current selection',
         format: (text) =>
-            text.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()),
+            text.replace(
+                /\w\S*/g,
+                (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+            ),
     },
     {
         label: 'Quote',
@@ -178,7 +181,8 @@ const FormatButtons: React.FC<FormatButtonsProps> = ({ dense = false, onFormat }
                 key={action.label}
                 onClick={() => onFormat(action.format)}
                 style={{
-                    background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.32), rgba(99, 102, 241, 0.55))',
+                    background:
+                        'linear-gradient(135deg, rgba(56, 189, 248, 0.32), rgba(99, 102, 241, 0.55))',
                     border: '1px solid rgba(148, 163, 184, 0.45)',
                     borderRadius: '0.85rem',
                     boxShadow: '0 4px 14px rgba(15, 23, 42, 0.35)',
@@ -218,9 +222,12 @@ const DemoLayout: React.FC<DemoLayoutProps> = ({ children, description, title })
 );
 
 const useToolbarCleanup = () => {
-    useEffect(() => () => {
-        globalToolbarManager.hideToolbar();
-    }, []);
+    useEffect(
+        () => () => {
+            globalToolbarManager.hideToolbar();
+        },
+        [],
+    );
 };
 
 const storyMeta = {
@@ -278,7 +285,9 @@ export const FocusTriggeredToolbar: Story = {
                                 style={textAreaStyle}
                                 value={message}
                             />
-                            <p style={hintStyle}>Select a phrase to see formatters act on just that snippet.</p>
+                            <p style={hintStyle}>
+                                Select a phrase to see formatters act on just that snippet.
+                            </p>
                         </label>
 
                         <label htmlFor={secondaryId} style={fieldWrapperStyle}>
@@ -291,7 +300,10 @@ export const FocusTriggeredToolbar: Story = {
                                 style={{ ...textAreaStyle, minHeight: '10rem' }}
                                 value={checklist}
                             />
-                            <p style={hintStyle}>The toolbar follows focus automatically, ensuring there is only one instance visible.</p>
+                            <p style={hintStyle}>
+                                The toolbar follows focus automatically, ensuring there is only one
+                                instance visible.
+                            </p>
                         </label>
                     </div>
 
@@ -357,7 +369,10 @@ export const CustomPlacement: Story = {
                                 style={{ ...textAreaStyle, minHeight: '11rem' }}
                                 value={value}
                             />
-                            <p style={hintStyle}>The toolbar uses custom positioning and stays around until focus changes.</p>
+                            <p style={hintStyle}>
+                                The toolbar uses custom positioning and stays around until focus
+                                changes.
+                            </p>
                         </label>
                     </div>
 
@@ -367,7 +382,8 @@ export const CustomPlacement: Story = {
                             style={{
                                 ...toolbarProps.style,
                                 ...toolbarSurfaceStyle,
-                                background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(12, 74, 110, 0.9))',
+                                background:
+                                    'linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(12, 74, 110, 0.9))',
                                 flexWrap: 'wrap',
                                 gap: '0.65rem',
                                 justifyContent: 'space-between',
@@ -379,7 +395,9 @@ export const CustomPlacement: Story = {
                                 <span aria-hidden style={toolbarBadgeStyle}>
                                     Hook only
                                 </span>
-                                <span style={{ ...toolbarHeadlineStyle, marginRight: 0 }}>Built with getToolbarProps()</span>
+                                <span style={{ ...toolbarHeadlineStyle, marginRight: 0 }}>
+                                    Built with getToolbarProps()
+                                </span>
                             </div>
                             <FormatButtons dense onFormat={applyFormat} />
                         </div>
@@ -390,17 +408,19 @@ export const CustomPlacement: Story = {
     },
 };
 
-const BaseTextarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>((props, ref) => (
-    <textarea
-        {...props}
-        ref={ref}
-        style={{
-            ...textAreaStyle,
-            minHeight: props.rows ? undefined : '12rem',
-            ...(props.style ?? {}),
-        }}
-    />
-));
+const BaseTextarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(
+    (props, ref) => (
+        <textarea
+            {...props}
+            ref={ref}
+            style={{
+                ...textAreaStyle,
+                minHeight: props.rows ? undefined : '12rem',
+                ...(props.style ?? {}),
+            }}
+        />
+    ),
+);
 
 BaseTextarea.displayName = 'BaseTextarea';
 
@@ -430,8 +450,8 @@ export const HigherOrderComponent: Story = {
                             value={notes}
                         />
                         <p style={hintStyle}>
-                            The toolbar instance is still global, so this input plays nicely with any other usage in your
-                            application.
+                            The toolbar instance is still global, so this input plays nicely with
+                            any other usage in your application.
                         </p>
                     </div>
 

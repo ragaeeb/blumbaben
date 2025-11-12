@@ -431,6 +431,22 @@ const addPrefix = (text: string) => `• ${text}`;
 </FormattingToolbar>
 ```
 
+## 🧪 Development
+
+This project is built with [Bun](https://bun.sh). Install dependencies and run the following scripts to work locally:
+
+```bash
+bun install
+```
+
+### Key scripts
+
+- `bun run build` &mdash; bundles the library using the custom [`tsdown`](./tsdown.config.ts) configuration and emits type declarations.
+- `bun test` &mdash; runs the Vitest suite, including unit tests powered by `@testing-library/react`/`@testing-library/dom` and Storybook checks.
+- `bun run build-storybook` &mdash; generates the static Storybook showcase.
+
+Testing helpers that mimic `@testing-library/react` live in [`tools/testing-library-react`](./tools/testing-library-react) to keep unit tests lightweight in this Bun environment.
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.

@@ -10,6 +10,9 @@
         "@storybook/addon-docs": "latest",
         "@storybook/addon-vitest": "latest",
         "@storybook/react-vite": "latest",
+        "@testing-library/dom": "latest",
+        "@testing-library/jest-dom": "latest",
+        "@testing-library/react": "workspace:tools/testing-library-react",
         "@types/bun": "latest",
         "@types/react": "latest",
         "@types/react-dom": "latest",
@@ -18,7 +21,7 @@
         "playwright": "latest",
         "semantic-release": "latest",
         "storybook": "latest",
-        "tsup": "latest",
+        "tsdown": "workspace:tools/tsdown",
         "vitest": "latest",
       },
       "peerDependencies": {

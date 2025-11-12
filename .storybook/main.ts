@@ -8,7 +8,12 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
     stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-    addons: ['@chromatic-com/storybook', '@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest'],
+    addons: [
+        '@chromatic-com/storybook',
+        '@storybook/addon-docs',
+        '@storybook/addon-a11y',
+        '@storybook/addon-vitest',
+    ],
     framework: {
         name: '@storybook/react-vite',
         options: {},
@@ -21,6 +26,10 @@ const config: StorybookConfig = {
             resolve: {
                 alias: {
                     '@': path.resolve(dirname, '../src'),
+                    '@testing-library/react': path.resolve(
+                        dirname,
+                        '../tools/testing-library-react/index.tsx',
+                    ),
                 },
             },
         }),

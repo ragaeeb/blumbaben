@@ -21,7 +21,8 @@
         "noUnusedParameters": false,
         "noPropertyAccessFromIndexSignature": false,
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "@testing-library/react": ["./tools/testing-library-react/index.tsx"]
         }
     },
     "include": ["src"]
