@@ -4,8 +4,8 @@ import { forwardRef, useEffect, useId, useState } from 'react';
 
 import { FormattingToolbar } from '@/formatting-toolbar';
 import { useFormattingToolbar } from '@/hooks/useFormattingToolbar';
-import { withFormattingToolbar } from '@/withFormattingToolbar';
 import { globalToolbarManager } from '@/utils/globalToolbarManager';
+import { withFormattingToolbar } from '@/withFormattingToolbar';
 
 const storyBackdropStyle: CSSProperties = {
     alignItems: 'flex-start',
@@ -15,7 +15,7 @@ const storyBackdropStyle: CSSProperties = {
     fontFamily: '"Inter", "Segoe UI", system-ui, -apple-system, sans-serif',
     justifyContent: 'center',
     minHeight: '100vh',
-    padding: '3.5rem 1.5rem 4.5rem',
+    padding: '3.5rem 1.5rem 8rem',
     width: '100%',
 };
 
@@ -32,25 +32,11 @@ const demoCardStyle: CSSProperties = {
     width: '100%',
 };
 
-const headingStyle: CSSProperties = {
-    color: '#0f172a',
-    display: 'grid',
-    gap: '0.75rem',
-};
+const headingStyle: CSSProperties = { color: '#0f172a', display: 'grid', gap: '0.75rem' };
 
-const headingTitleStyle: CSSProperties = {
-    fontSize: '1.75rem',
-    fontWeight: 700,
-    letterSpacing: '-0.01em',
-    margin: 0,
-};
+const headingTitleStyle: CSSProperties = { fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.01em', margin: 0 };
 
-const headingDescriptionStyle: CSSProperties = {
-    color: '#475569',
-    fontSize: '1rem',
-    lineHeight: 1.7,
-    margin: 0,
-};
+const headingDescriptionStyle: CSSProperties = { color: '#475569', fontSize: '1rem', lineHeight: 1.7, margin: 0 };
 
 const inputsGridStyle: CSSProperties = {
     display: 'grid',
@@ -58,10 +44,7 @@ const inputsGridStyle: CSSProperties = {
     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
 };
 
-const fieldWrapperStyle: CSSProperties = {
-    display: 'grid',
-    gap: '0.75rem',
-};
+const fieldWrapperStyle: CSSProperties = { display: 'grid', gap: '0.75rem' };
 
 const labelStyle: CSSProperties = {
     color: '#1e293b',
@@ -71,12 +54,7 @@ const labelStyle: CSSProperties = {
     textTransform: 'uppercase',
 };
 
-const hintStyle: CSSProperties = {
-    color: '#64748b',
-    fontSize: '0.9rem',
-    lineHeight: 1.6,
-    margin: 0,
-};
+const hintStyle: CSSProperties = { color: '#64748b', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 };
 
 const textAreaStyle: CSSProperties = {
     backgroundColor: '#f8fafc',
@@ -125,51 +103,39 @@ const toolbarBadgeStyle: CSSProperties = {
     textTransform: 'uppercase',
 };
 
-const toolbarActionsStyle: CSSProperties = {
-    alignItems: 'center',
-    display: 'flex',
-    gap: '0.45rem',
-};
+const toolbarActionsStyle: CSSProperties = { alignItems: 'center', display: 'flex', gap: '0.45rem' };
 
-type FormatAction = {
-    label: string;
-    tooltip: string;
-    format: (text: string) => string;
-};
+type FormatAction = { label: string; tooltip: string; format: (text: string) => string };
 
 const formatActions: FormatAction[] = [
     {
+        format: (text) => text.toUpperCase(),
         label: 'Uppercase',
         tooltip: 'Convert the current selection to uppercase characters',
-        format: (text) => text.toUpperCase(),
     },
     {
+        format: (text) => text.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()),
         label: 'Title case',
         tooltip: 'Capitalize every word in the current selection',
-        format: (text) =>
-            text.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()),
     },
     {
+        format: (text) => (text.trim().length ? `“${text.trim()}”` : text),
         label: 'Quote',
         tooltip: 'Wrap the selection in smart quotes',
-        format: (text) => (text.trim().length ? `“${text.trim()}”` : text),
     },
     {
-        label: 'Slugify',
-        tooltip: 'Transform the current selection into a URL-friendly slug',
         format: (text) =>
             text
                 .trim()
                 .toLowerCase()
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/(^-|-$)+/g, ''),
+        label: 'Slugify',
+        tooltip: 'Transform the current selection into a URL-friendly slug',
     },
 ];
 
-type FormatButtonsProps = {
-    dense?: boolean;
-    onFormat: (formatter: FormatAction['format']) => void;
-};
+type FormatButtonsProps = { dense?: boolean; onFormat: (formatter: FormatAction['format']) => void };
 
 const FormatButtons: React.FC<FormatButtonsProps> = ({ dense = false, onFormat }) => (
     <div style={{ ...toolbarActionsStyle, gap: dense ? '0.35rem' : toolbarActionsStyle.gap }}>
@@ -200,11 +166,7 @@ const FormatButtons: React.FC<FormatButtonsProps> = ({ dense = false, onFormat }
     </div>
 );
 
-type DemoLayoutProps = {
-    children: ReactNode;
-    description: ReactNode;
-    title: string;
-};
+type DemoLayoutProps = { children: ReactNode; description: ReactNode; title: string };
 
 const DemoLayout: React.FC<DemoLayoutProps> = ({ children, description, title }) => (
     <div style={demoCardStyle}>
@@ -218,24 +180,20 @@ const DemoLayout: React.FC<DemoLayoutProps> = ({ children, description, title })
 );
 
 const useToolbarCleanup = () => {
-    useEffect(() => () => {
-        globalToolbarManager.hideToolbar();
-    }, []);
+    useEffect(
+        () => () => {
+            globalToolbarManager.hideToolbar();
+        },
+        [],
+    );
 };
 
 const storyMeta = {
-    title: 'Formatting toolbar/Examples',
+    args: { children: () => null },
     component: FormattingToolbar,
-    args: {
-        children: () => null,
-    },
-    parameters: {
-        layout: 'fullscreen',
-        options: {
-            showPanel: true,
-        },
-    },
+    parameters: { layout: 'fullscreen', options: { showPanel: true } },
     tags: ['autodocs'],
+    title: 'Formatting toolbar/Examples',
 } satisfies Meta<typeof FormattingToolbar>;
 
 export default storyMeta;
@@ -257,7 +215,19 @@ export const FocusTriggeredToolbar: Story = {
         const [checklist, setChecklist] = useState(
             'You can focus a different input to reuse the same toolbar. The formatting applies to the selection or entire value.',
         );
-        const { getInputProps } = useFormattingToolbar();
+        const { getInputProps } = useFormattingToolbar({
+            getPosition: (element) => {
+                const rect = element.getBoundingClientRect();
+                const toolbarHeight = 60;
+                const viewportHeight = window.innerHeight;
+
+                // Position above if too close to bottom
+                if (rect.bottom + toolbarHeight > viewportHeight - 20) {
+                    return { x: rect.left, y: rect.top - toolbarHeight - 5 };
+                }
+                return { x: rect.left, y: rect.bottom + 5 };
+            },
+        });
         const primaryId = useId();
         const secondaryId = useId();
 
@@ -291,7 +261,9 @@ export const FocusTriggeredToolbar: Story = {
                                 style={{ ...textAreaStyle, minHeight: '10rem' }}
                                 value={checklist}
                             />
-                            <p style={hintStyle}>The toolbar follows focus automatically, ensuring there is only one instance visible.</p>
+                            <p style={hintStyle}>
+                                The toolbar follows focus automatically, ensuring there is only one instance visible.
+                            </p>
                         </label>
                     </div>
 
@@ -323,18 +295,15 @@ export const CustomPlacement: Story = {
             'This example builds a bespoke toolbar using only the hook. It positions the surface above the focused field and keeps it visible until the focus changes.',
         );
         const { applyFormat, getInputProps, getToolbarProps, isVisible } = useFormattingToolbar({
-            hideDelay: 0,
-            preventCloseOnClick: false,
             getPosition: (element) => {
                 const rect = element.getBoundingClientRect();
                 const width = 340;
                 const centeredX = rect.left + rect.width / 2 - width / 2;
 
-                return {
-                    x: Math.max(centeredX, 24),
-                    y: Math.max(rect.top - 90, 24),
-                };
+                return { x: Math.max(centeredX, 24), y: Math.max(rect.top - 90, 24) };
             },
+            hideDelay: 0,
+            preventCloseOnClick: false,
         });
         const fieldId = useId();
 
@@ -357,7 +326,9 @@ export const CustomPlacement: Story = {
                                 style={{ ...textAreaStyle, minHeight: '11rem' }}
                                 value={value}
                             />
-                            <p style={hintStyle}>The toolbar uses custom positioning and stays around until focus changes.</p>
+                            <p style={hintStyle}>
+                                The toolbar uses custom positioning and stays around until focus changes.
+                            </p>
                         </label>
                     </div>
 
@@ -379,7 +350,9 @@ export const CustomPlacement: Story = {
                                 <span aria-hidden style={toolbarBadgeStyle}>
                                     Hook only
                                 </span>
-                                <span style={{ ...toolbarHeadlineStyle, marginRight: 0 }}>Built with getToolbarProps()</span>
+                                <span style={{ ...toolbarHeadlineStyle, marginRight: 0 }}>
+                                    Built with getToolbarProps()
+                                </span>
                             </div>
                             <FormatButtons dense onFormat={applyFormat} />
                         </div>
@@ -394,17 +367,23 @@ const BaseTextarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTML
     <textarea
         {...props}
         ref={ref}
-        style={{
-            ...textAreaStyle,
-            minHeight: props.rows ? undefined : '12rem',
-            ...(props.style ?? {}),
-        }}
+        style={{ ...textAreaStyle, minHeight: props.rows ? undefined : '12rem', ...(props.style ?? {}) }}
     />
 ));
 
 BaseTextarea.displayName = 'BaseTextarea';
 
 const TextareaWithToolbar = withFormattingToolbar(BaseTextarea, {
+    getPosition: (element) => {
+        const rect = element.getBoundingClientRect();
+        const toolbarHeight = 60;
+        const viewportHeight = window.innerHeight;
+
+        if (rect.bottom + toolbarHeight > viewportHeight - 20) {
+            return { x: rect.left, y: rect.top - toolbarHeight - 5 };
+        }
+        return { x: rect.left, y: rect.bottom + 5 };
+    },
     hideDelay: 250,
 });
 
@@ -430,8 +409,8 @@ export const HigherOrderComponent: Story = {
                             value={notes}
                         />
                         <p style={hintStyle}>
-                            The toolbar instance is still global, so this input plays nicely with any other usage in your
-                            application.
+                            The toolbar instance is still global, so this input plays nicely with any other usage in
+                            your application.
                         </p>
                     </div>
 

@@ -9,7 +9,7 @@ import * as ToolbarStories from './FormattingToolbar.stories';
 
 ## Try it out
 
-<Canvas of={ToolbarStories.FocusTriggeredToolbar} />
+<Canvas of={ToolbarStories.FocusTriggeredToolbar} layout="fullscreen" sourceState="none" story={{ height: '700px' }} />
 
 ## Quick start
 
@@ -52,16 +52,17 @@ export function CommentComposer() {
 
 Use `useFormattingToolbar` when you need total control over the positioning or behaviour of the toolbar.
 
-<Canvas of={ToolbarStories.CustomPlacement} />
+<Canvas of={ToolbarStories.CustomPlacement} layout="fullscreen" sourceState="none" story={{ height: '600px' }} />
 
 ## Upgrade existing inputs
 
 `withFormattingToolbar` enhances an existing input component without changing its internals.
 
-<Canvas of={ToolbarStories.HigherOrderComponent} />
+<Canvas of={ToolbarStories.HigherOrderComponent} layout="fullscreen" sourceState="none" story={{ height: '600px' }} />
 
 ## Key ideas
 
 - **Single global toolbar** – whichever input is focused owns the toolbar until focus changes.
 - **Formatter functions** – `applyFormat` receives a function that transforms the active selection or the entire field when nothing is selected.
 - **Bring your own UI** – the library only manages state and positioning, letting you render any UI you prefer.
+
